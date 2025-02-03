@@ -14,13 +14,19 @@ if not os.path.exists(css):
 
 options = {
     'page-size': 'A4',
+    'margin-top': '0in',
+    'margin-right': '0in',
+    'margin-bottom': '0in',
+    'margin-left': '0in',
     'encoding': "UTF-8",
     'orientation': 'Landscape',
     'custom-header': [
         ('Accept-Encoding', 'gzip')
     ],
     'no-outline': None,
-    '--enable-local-file-access': None
+    '--enable-local-file-access': None,
+    '--disable-smart-shrinking': None,
+    '--zoom': '1.3'
 }
 
 path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'  
