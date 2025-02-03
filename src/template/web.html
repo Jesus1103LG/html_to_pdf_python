@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Certificado de Diplomado</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="certificado">
+      <div class="titulo">CERTIFICADO DE DIPLOMADO</div>
+      <p class="texto">Este certificado se otorga a:</p>
+      <div class="nombre">{{ nombre }}</div>
+      <p class="texto">
+        Por haber completado satisfactoriamente el diplomado en:
+      </p>
+      <div class="diplomado">{{ diplomado }}</div>
+      <p class="texto">Otorgado el día {{ fecha }} por {{ institucion }}.</p>
+      <div class="firmas">
+        <div class="firma">
+          <hr />
+          <p>Firma del Director</p>
+        </div>
+        <div class="firma">
+          <hr />
+          <p>Firma del Coordinador</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
