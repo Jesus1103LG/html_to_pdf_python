@@ -1,4 +1,5 @@
 import wx
+from html_to_pdf import generar_certificado
 
 class HelloFrame(wx.Frame):
     """
@@ -7,29 +8,55 @@ class HelloFrame(wx.Frame):
 
     def __init__(self, *args, **kw):
         # ensure the parent's __init__ is called
-        super(HelloFrame, self).__init__(*args, **kw)
+        super(HelloFrame, self).__init__(*args, **kw, size=(400,400))
 
         # create a panel in the frame
         pnl = wx.Panel(self)
-
-        # put some text with a larger bold font on it
-        st = wx.StaticText(pnl, label="Hello World!")
-        font = st.GetFont()
-        font.PointSize += 10
-        font = font.Bold()
-        st.SetFont(font)
+        pnl.SetSizeHints(wx.DefaultSize, wx.DefaultSize)
 
         # Intput de texto
+
+        # Input nombre
+        st = wx.StaticText(pnl, label="Nombre:")
+        font = st.GetFont()
+        font.PointSize += 1
+        font = font.Bold()
+        st.SetFont(font)
+        
         self.text_ctrl = wx.TextCtrl(pnl, style=wx.TE_PROCESS_ENTER)
+        
+        # Input Diplomado
+        st2 = wx.StaticText(pnl, label="Diploma:")
+        st2.SetFont(font)
+
+        self.text_ctrl2 = wx.TextCtrl(pnl, style=wx.TE_PROCESS_ENTER)
+
+        # Input Fecha
+        st3 = wx.StaticText(pnl, label="Fecha:")
+        st3.SetFont(font)
+
+        self.text_ctrl3 = wx.TextCtrl(pnl, style=wx.TE_PROCESS_ENTER)
+
+        # Input instituto
+        st4 = wx.StaticText(pnl, label="Instituto:")
+        st4.SetFont(font)
+
+        self.text_ctrl4 = wx.TextCtrl(pnl, style=wx.TE_PROCESS_ENTER)
 
         # Boton paar mostrar el texto ingresado
-        btn = wx.Button(pnl, label="Mostrar")
+        btn = wx.Button(pnl, label="Generar PDF")
         btn.Bind(wx.EVT_BUTTON, self.on_button_click)
 
         # and create a sizer to manage the layout of child widgets
         sizer = wx.BoxSizer(wx.VERTICAL)
-        sizer.Add(st, 0, wx.ALL, 10)
-        sizer.Add(self.text_ctrl, 0, wx.EXPAND | wx.ALL, 10)
+        sizer.Add(st, 0,  wx.LEFT | wx.TOP, 10)
+        sizer.Add(self.text_ctrl, 0, wx.EXPAND | wx.LEFT | wx.RIGHT, 10)
+        sizer.Add(st2, 0,  wx.LEFT | wx.TOP, 10)
+        sizer.Add(self.text_ctrl2, 0, wx.EXPAND | wx.ALL, 10)
+        sizer.Add(st3, 0,  wx.LEFT | wx.TOP, 10)
+        sizer.Add(self.text_ctrl3, 0, wx.EXPAND | wx.ALL, 10)
+        sizer.Add(st4, 0,  wx.LEFT | wx.TOP, 10)
+        sizer.Add(self.text_ctrl4, 0, wx.EXPAND | wx.ALL, 10)
         sizer.Add(btn, 0, wx.ALL | wx.CENTER, 10)
         
         pnl.SetSizer(sizer)
@@ -84,8 +111,21 @@ class HelloFrame(wx.Frame):
 
     def on_button_click(self, event):
         """Muestra el texto ingresado en la barra de estado"""
-        texto_ingresado = self.text_ctrl.GetValue()
-        self.SetStatusText(f"Texto ingresado: {texto_ingresado}")
+        nombre = self.text_ctrl.GetValue()
+        diplomado = self.text_ctrl2.GetValue()
+        fecha = self.text_ctrl3.GetValue()
+        instituto = self.text_ctrl4.GetValue()
+        data = {
+            'nombre': nombre,
+            'diplomado': diplomado,
+            'fecha': fecha,
+            'institucion': instituto
+        }
+        # self.SetStatusText(f"Texto ingresado: {texto_ingresado}")
+        output_pdf = 'certificado.pdf'
+        generar_certificado(data, output_pdf)
+        self.SetStatusText(f"PDF generado correctamente: {output_pdf}")
+
 
     def OnExit(self, event):
         """Close the frame, terminating the application."""
